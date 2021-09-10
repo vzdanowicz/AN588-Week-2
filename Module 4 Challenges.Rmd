@@ -12,9 +12,9 @@ library(stringr)
 library(knitr)
 ```
 
-**CHALLENGE 1**
+CHALLENGE 1
 
-First, I removed the punctuation/special characters from the opening line to James Joyce's *Ulysses*, “Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed.” I then used `r str_split()` to create a vector of 1, word character strings.
+First, I removed the punctuation/special characters from the opening line to James Joyce's Ulysses, “Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed.” I then used str_split() to create a vector of 1, word character strings.
 
 ```{r}
 string<-"Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed."
