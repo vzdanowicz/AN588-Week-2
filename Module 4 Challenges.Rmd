@@ -1,0 +1,42 @@
+---
+title: "Module 4 Challenges"
+author: "Victoria Zdanowicz"
+date: "9/10/2021"
+output: html_document
+---
+
+Below is my work for the Module 4 Challenges. 
+I first created a text file (with Atom) of the random_people.csv data and loaded the 'Stringr' package.
+```{r}
+library(stringr)
+library(knitr)
+```
+
+**CHALLENGE 1**
+
+First, I removed the punctuation/special characters from the opening line to James Joyce's *Ulysses*, “Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed.” I then used `r str_split()` to create a vector of 1, word character strings.
+
+```{r}
+string<-"Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed."
+gsub("[[:punct:]]","",string)
+z<-gsub("[[:punct:]]","",string)
+str_split(z, boundary("word"))
+```
+
+The next instruction was to extract every third element in the vector. I first created a matrix with the character strings from the previous step. I then extracted every third word from the vector.
+
+```{r}
+m<-matrix(data= c("Stately","plump","Buck","Mulligan","came","from","the","stairhead","bearing","a","bowl","of","lather","on","which","a","mirror","and","a","razor","lay","crossed"),nrow = 2,ncol = 11, byrow=FALSE)
+y <- m[seq(1, length(m), 3)]
+y
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+
+```
+
+
+
+
