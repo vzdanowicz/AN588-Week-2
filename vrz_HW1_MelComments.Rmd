@@ -1,0 +1,225 @@
+---
+title: "Module 04"
+author: "Victoria Zdanowicz"
+date: "9/10/2021"
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: TRUE
+---
+
+Below is my work for Module 4 
+I first created a text file (with Atom) of the random-people.csv data and loaded the 'Stringr' package.
+<br>
+```{r}
+library(stringr)
+library(knitr)
+```
+<br><br>
+
+# CHALLENGE 1
+
+<br><br>
+First, I removed the punctuation/special characters from the opening line to James Joyce's Ulysses, “Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed.” I then used str_split() to create a vector of 1, word character strings.
+<br>
+```{r}
+string<-"Stately, plump Buck Mulligan came from the stairhead, bearing a bowl of lather on which a mirror and a razor lay crossed."
+gsub("[[:punct:]]","",string)
+z<-gsub("[[:punct:]]","",string)
+str_split(z, boundary("word"))
+```
+
+*Quicker way divide the string into a vector of substrings and extarct every third word:* 
+
+string<-str_split(string, " ", simplify = TRUE) #splitting everything within the quotes by spaces
+string[seq(from = 3, to = 22, by = 3)]
+*basically doing what you do in the next step, but w/out having to put "" around each word.. -Mel*
+
+<br>
+The next instruction was to extract every third element in the vector. I first created a matrix with the character strings from the previous step. I then extracted every third word from the vector by commanding a sequence with every third element.
+<br>
+```{r}
+x<-matrix(data= c("Stately","plump","Buck","Mulligan","came","from","the","stairhead","bearing","a","bowl","of","lather","on","which","a","mirror","and","a","razor","lay","crossed"),nrow = 2,ncol = 11, byrow=FALSE)
+y <- x[seq(1, length(x), 3)]
+y
+```
+<br><br>
+
+***
+
+<br><br>
+
+# CHALLENGE 2
+
+<br><br>
+I first created a matrix with values 1-80. 
+<br>
+```{r}
+m <- matrix(data = 1:80, nrow = 8, ncol = 10, byrow = FALSE)
+m
+```
+<br>
+Given the matrix, m, above, I extracted the 2nd, 3rd, and 6th columns and assigned them to the variable x
+<br>
+```{r}
+x<-m[,c(2,3,6)]
+x
+```
+<br>
+Given the same matrix, m, I extracted the 6th to 8th row and assign them to the variable x
+<br>
+```{r}
+x<-m[c(6:8),]
+x
+```
+<br>
+Given the same matrix, m, I extracted the elements from row 2, column 2 to row 6, column 9 and assign them to the variable x
+<br>
+```{R}
+x<-m[c(2:6),c(2:9)]
+x
+```
+*Here you want to pull out all the numbers between the points in the matrix (2,2, all the way through 6,9), not just the block inbetween. You can do this by identifying each point in the matrix and then putting the colon between those points: x<-m[2,2]:m[6,9]. Remeber the commas indicate "row,column" and the colons mean "through" -Mel*
+
+<br><br>
+
+***
+
+<br><br>
+
+# CHALLENGE 3
+
+<br><br>
+I first constructed a 4-dimensional, 400 element array (5 x 5 x 4 x 4) named a, consisting of the numbers 400 to 1 
+<br>
+```{r}
+a <- array(400:1, c(5, 5, 4, 4))
+a
+```
+<br>
+With this matrix, a[1, 1, 1, 2] returns the element located at [1,1] in the fifth 5X5 matrix [, , 1, 2]
+<br>
+```{r}
+a[1, 1, 1, 2]
+```
+<br>
+With this matrix, a[2, 3, 2, ] returns the elements located at [2,3] in [, , 2, ] matrices
+<br>
+```{r}
+a[2, 3, 2, ]
+```
+<br>
+With the same matrix, a[1:5, 1:5, 3, 3] returns the elements from [1,1] to [5,5] in matrix 11 [, , 3, 3], which is the entire matrix 
+<br>
+```{r}
+a[1:5, 1:5, 3, 3]
+```
+<br><br>
+
+***
+
+<br><br>
+
+# CHALLENGE 4
+
+<br><br>
+To create a list of simplified primate taxonomy, I began creating lists going from most specific taxonomic rank to most general, starting with the suborder Strepsirhini 
+<br>
+```{r}
+Lemuroidea <- c("Cheirogaleidae", "Lepilemuridae", "Indriidae", "Lemuridae",
+    "Daubentoniidae")
+Lorisoidea <- c("Lorisidae", "Galagidae")
+Strepsirhini <- list(Lemuroidea, Lorisoidea)
+names(Strepsirhini) <- list("Lemuroidea", "Lorisoidea")
+Strepsirhini
+```
+<br><br>
+I then followed this same process to create 2 lists within the suborder Haplorhini starting with the parvorders Platyrrhini and Catarrhini within the infraorder Anthropoidea
+<br>
+```{r}
+Platyrrhini <- c("Cebidae", "Atelidae", "Pitheciidae")
+Catarrhini <- c("Cercopithecidae", "Hylobatidae", "Hominidae")
+Anthropoidea <- list(Platyrrhini, Catarrhini)
+names(Anthropoidea) <- list("Platyrrhini", "Catarrhini")
+Anthropoidea
+```
+<br><br>
+Next I created a list of the infraorder Tarsioidea to combine with the infraorder Anthropoidea list for the suborder Haplorhini
+<br>
+```{r}
+Tarsioidea <- c("Tarsiidae")
+Haplorhini <- list(Tarsioidea, Anthropoidea)
+names(Haplorhini) <- list("Tarsioidea", "Anthropoidea")
+Haplorhini
+```
+<br><br>
+Lastly, I combined the Haplorhini and Strepsirhini lists to create the overall Primate list 
+<br>
+```{r}
+Primates <- list(Haplorhini, Strepsirhini)
+names(Primates) <- list("Haplorhini", "Strepsirhini")
+Primates
+```
+<br><br>
+
+***
+
+<br><br>
+
+# CHALLENGE 5
+
+<br><br>
+I first created a 5 X 3 matrix, m3, with the values: 3, 0, 1 ,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2
+<br>
+```{R}
+m3<-matrix(data = c(3, 0, 1 ,23, 1, 2, 33, 1, 1, 42, 0, 1, 41, 0, 2), nrow = 5, ncol = 3, byrow = TRUE)
+m3
+```
+<br><br>
+Next - I coerced the matrix into a data frame, m3.df, with the command as.data.frame()
+<br>
+```{R}
+m3.df <- as.data.frame(m3)
+m3.df
+```
+<br><br>
+To coerce the second column to be logical-valued I used the as.logical() command 
+<br>
+```{R}
+m3.df$V2<-as.logical(m3.df$V2)
+m3.df
+```
+<br><br>
+To coerce the third column to be factor-valued I used the factor() command 
+<br>
+```{R}
+m3.df$V3<-as.factor(m3.df$V3)
+m3.df
+```
+<br><br>
+Lastly, the str() command displays the data type for each variable in m3.df
+<br>
+```{R}
+str(m3.df)
+```
+<br><br>
+
+***
+
+<br><br>
+
+#Coding Challenges
+
+<br><br>
+
+1. My biggest challenge was figuring out which wording to use in order to research a potential command. I feel like I am still learning the language and words to use to describe what I want to do and the problems I am having. 
+<br>
+2. For challenge 1, I am curious if there was a more efficient way to extract every 3rd element without making a matrix. I was unable to come up with another way to separate out those elements. Creating a matrix didn't seem like the thing to do but I was not sure of a command that could select/sequence outside of having a matrix. !! while commenting on Nirmiti's code, I noticed she used the sequence function without creating a matrix !!
+<br>
+3. It took me a really long time to wrap my head around the 5x5x4x4 matrix, I was not sure how to refer to the data and didn't feel confident about my work until I gave up trying to visualize or name the different matricies. 
+<br>
+4. I am still having a hard time fulling understanding when we are pushing and pulling. I've run into a few issues trying to push updates to GitHub and getting error messages back that I don't have permission or that things are updated when they actually aren't. I also can't figure out how to have RStudio always show Git commands?? I guess I have to manually connect the two?
+<br>
+5. I ran into some serious issues when I tried to rename my code? I ended up just making a new file with the name I wanted and copying everything over because I guess renaming on my laptop disconnected it from GitHub? Next time I think I will have to try and make sure its connected to the repo?
+<br><br>
